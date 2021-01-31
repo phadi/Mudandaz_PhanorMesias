@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title> LOG IN </title>
+</head>
+<body>
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-3">
+          <label class="control-label">
+            <span class="fas fa-user"></span>
+            User:
+          </label>
+        </div>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" placeholder="User" [(ngModel)]="user"/>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <div class="col-sm-3">
+          <label class="control-label">
+            <span class="fas fa-key"></span>
+            Password:
+          </label>
+        </div>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" placeholder="Password" [(ngModel)]="password" />
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6"></div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-sm-6 text-center">
+      <input type="button" class="btn-primary" value="LOG IN" (click)="login()" />
+    </div>
+    <div class="col-sm-6"></div>
+  </div>
+</body>
+</html>
