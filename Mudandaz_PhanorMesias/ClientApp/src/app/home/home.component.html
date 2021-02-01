@@ -5,9 +5,19 @@
   <li><a href='https://angular.io/' target="_blank">Angular</a> y <a href='http://www.typescriptlang.org/' target="_blank">TypeScript</a> en el front</li>
   <li><a href='http://getbootstrap.com/' target="_blank">Bootstrap</a> para diseño y estilos</li>
 </ul>
-<p>La prueba en total cosnta de 2 partes:</p>
+<p>La prueba en total consta de 2 partes:</p>
 <ul>
   <li><strong>Codigo fuente</strong>: Se encuentra en GitHub en la ruta: <a href='https://github.com/phadi/Mudandaz_PhanorMesias.git' target="_blank">https://github.com/phadi/Mudandaz_PhanorMesias.git</a>.</li>
   <li><strong>Video Tutorial</strong>: Se descarga desde Google Drive en: <a href='https://github.com/phadi/Mudandaz_PhanorMesias.git' target="_blank">GitHub (https://github.com/phadi/Mudandaz_PhanorMesias.git)</a>.</li>
 </ul>
-<p><button [routerLink]="['/ingreso']" class="btn-primary"><span class="fas fa-sign-in-alt"></span> LOG IN</button></p>
+<br />
+
+<div class="row">
+  <div class="col-sm-6  text-right">
+    <button [routerLink]="['/ingreso']" class="btn-primary"><span class="fas fa-sign-in-alt"></span> LOG IN</button>
+  </div>
+  <div *ngIf="logedUsr" class="col-sm-6  text-left">
+    <button (click)="logout()" class="btn-primary"><span class="fas fa-sign-out-alt"></span> LOG OUT</button>
+  </div>
+</div>
+

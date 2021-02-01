@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title> MENU PRINCIPAL </title>
+</head>
+<body>
+  <div class="row">
+    <div class="col-sm-3">
+      <app-listamenu [modules]="modules"></app-listamenu>
+    </div>
+    <div class="col-sm-9">
+      <div class="media position-relative">
+        <div class="media-body text-center">
+          <h5> MENU PRINCIPAL </h5>
+        </div>
+      </div>
+      <hr />
+      <div *ngIf="modules">
+        <div *ngFor="let element of modules">
+          <div class="media-body" (click)="navigation([element.url])">
+            <h3><b>{{ element.module }}</b></h3>
+            <h4>{{ element.description }}</h4>
+          </div>
+          <hr />
+        </div>
+      </div>
+
+      <div *ngIf="logedUsr; else elseBlock">
+        <div class="media-body" (click)="salir()">
+          <button class="btn-primary"><span class="fas fa-sign-out-alt"></span> LOG OUT</button>
+        </div>
+      </div>
+      <ng-template #elseBlock>
+        <div class="media-body">
+          <button [routerLink]="['/ingreso']" class="btn-primary"><span class="fas fa-sign-in-alt"></span> LOG IN</button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</body>
+</html>

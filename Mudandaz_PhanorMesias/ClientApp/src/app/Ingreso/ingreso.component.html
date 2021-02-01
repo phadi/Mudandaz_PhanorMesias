@@ -6,39 +6,44 @@
 </head>
 <body>
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
       <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-5">
           <label class="control-label">
             <span class="fas fa-user"></span>
-            User:
+            Usuario:
           </label>
         </div>
         <div class="col-sm-9">
-          <input type="text" class="form-control" placeholder="User" [(ngModel)]="user"/>
+          <input type="text" class="form-control" placeholder="Usuario" [(ngModel)]="user" />
         </div>
       </div>
       <br />
       <div class="row">
-        <div class="col-sm-3">
+        <div class="col-sm-5">
           <label class="control-label">
             <span class="fas fa-key"></span>
-            Password:
+            Contraseña:
           </label>
         </div>
         <div class="col-sm-9">
-          <input type="text" class="form-control" placeholder="Password" [(ngModel)]="password" />
+          <input type="password" class="form-control" placeholder="Contraseña" [(ngModel)]="password" />
         </div>
       </div>
+      <br />
+      <div class="row">
+        <div class="col-sm-6 text-right">
+          <button (click)="login()" class="btn-primary"><span class="fas fa-sign-in-alt"></span> LOG IN</button>
+        </div>
+        <div *ngIf="logedUsr" class="col-sm-6 text-left">
+          <button (click)="logout()" class="btn-primary"><span class="fas fa-sign-out-alt"></span> LOG OUT</button>
+        </div>        
+      </div>
     </div>
-    <div class="col-sm-6"></div>
+    <div class="col-sm-4"></div>
   </div>
   <br />
-  <div class="row">
-    <div class="col-sm-6 text-center">
-      <input type="button" class="btn-primary" value="LOG IN" (click)="login()" />
-    </div>
-    <div class="col-sm-6"></div>
-  </div>
+  
 </body>
 </html>

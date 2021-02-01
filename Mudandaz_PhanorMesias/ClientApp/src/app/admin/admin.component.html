@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ADMINISTRADOR</title>
+</head>
+<body>
+  <div class="row">
+    <div class="col-sm-3">
+      <app-listamenu [modules]="modules"></app-listamenu>
+    </div>
+
+    <div class="col-sm-9">
+      <div class="media position-relative">
+        <div class="media-body text-center">
+          <h5> ADMINISTRADOR </h5>
+        </div>
+      </div>
+      <hr />
+      <h6> GESTON DE USUARIOS </h6>
+      <div *ngIf="!esEditar; else elseBlock">
+        <div class="media-body text-left">
+          <button class="btn-primary" (click)="newUser()">
+            <span class="fas fa-user-plus"></span>    Nuevo Usuario
+          </button>
+        </div>
+        <br />
+        <div class="media-body text-left">
+          <p *ngIf="!modules"><em>Loading...</em></p>
+
+          <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="userModules">
+            <thead>
+              <tr>
+                <th>UserId</th>
+                <th>Nombre</th>
+                <th>Login</th>
+                <th>Permisos</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let userMod of userModules">
+                <td style="vertical-align:middle">{{ userMod.user.userId }}</td>
+                <td style="vertical-align:middle">{{ userMod.user.name }}</td>
+                <td style="vertical-align:middle">{{ userMod.user.login }}</td>
+                <td style="vertical-align:middle">
+                  <div *ngFor="let mods of userMod.modules">{{ mods.module }}</div>
+                </td>
+                <td style="vertical-align:middle">
+                  <button class="btn-primary" (click)="editUser(userMod)">
+                    <span class="fas fa-user-circle"></span>    Editar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <ng-template #elseBlock>
+        <div>
+          <div class="row">
+            <div class="col-sm-4 text-right form-group">
+              <label class="ion-text-wrap" position="floating">
+                <span class="fas fa-user-circle"></span> Nombre
+              </label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" placeholder="Nombre" [(ngModel)]="name">
+            </div>
+
+            <div class="col-sm-4 text-right form-group">
+              <label class="ion-text-wrap" position="floating">
+                <span class="fas fa-user-circle"></span> Login
+              </label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" placeholder="Login" [(ngModel)]="login">
+            </div>
+
+            <div class="col-sm-4 text-right form-group">
+              <label class="ion-text-wrap" position="floating">
+                <span class="fas fa-user-circle"></span> Contraseña
+              </label>
+            </div>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" placeholder="Contraseña" [(ngModel)]="password">
+            </div>
+
+            <div class="col-sm-4 text-right form-group"></div>
+            <div class="col-sm-8">
+              <button class="btn-primary" (click)="saveEditUser()">
+                <span class="fas fa-save"></span>    Actualizar
+              </button>
+
+              <button class="btn-primary" (click)="cancelar()">
+                <span class="fas fa-reply"></span>    Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+     
+
+    </div>
+  </div>
+</body>
+</html>

@@ -46,6 +46,11 @@ namespace Mudandaz_PhanorMesias.Models
                     .IsUnicode(false)
                     .HasColumnName("description");
 
+                entity.Property(e => e.Image)
+                    .HasMaxLength(150)
+                    .IsUnicode(false)
+                    .HasColumnName("image");
+
                 entity.Property(e => e.Module)
                     .HasMaxLength(50)
                     .IsUnicode(false)

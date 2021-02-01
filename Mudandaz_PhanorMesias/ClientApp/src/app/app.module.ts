@@ -7,32 +7,39 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 
 import { IngresoComponent } from './ingreso/ingreso.component';
+import { MenuComponent } from './menu/menu.component';
+import { AdminComponent } from './admin/admin.component';
+import { MudanzaComponent } from './mudanza/mudanza.component';
+import { AutenticacionService } from './services/autenticacion.service'
+import { ListamenuComponent } from './listamenu/listamenu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
-    IngresoComponent
+    IngresoComponent,
+    MenuComponent,
+    AdminComponent,
+    MudanzaComponent,
+    ListamenuComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    HttpClientModule,
+    HttpClientModule,    
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'home', component: HomeComponent },
       { path: 'ingreso', component: IngresoComponent },
+      { path: 'menu', component: MenuComponent },
+      { path: 'admin', component: AdminComponent },
+      { path: 'mudanza', component: MudanzaComponent },
     ])
   ],
-  providers: [],
+  providers: [AutenticacionService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

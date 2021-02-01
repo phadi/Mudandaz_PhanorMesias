@@ -40,7 +40,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\admin\admin.component.ts" />
     <None Remove="ClientApp\src\app\Ingreso\ingreso.component.ts" />
+    <None Remove="ClientApp\src\app\interfaces.ts" />
+    <None Remove="ClientApp\src\app\listamenu\listamenu.component.ts" />
+    <None Remove="ClientApp\src\app\menu\menu.component.ts" />
+    <None Remove="ClientApp\src\app\mudanza\mudanza.component.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

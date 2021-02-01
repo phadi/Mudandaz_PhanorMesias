@@ -7,8 +7,15 @@ namespace Mudandaz_PhanorMesias.ViewModels
 {
     public class TbUserAuthorizationModel
     {
-        public int UserAuthorizationId { get; set; }
-        public int? User { get; set; }
-        public int? Module { get; set; }
+        public TbUserModel User { get; set; }
+        public List<TbModuleModel> Modules { get; set; }
+
+        public TbUserAuthorizationModel() { }
+
+        public TbUserAuthorizationModel(TbUserModel _User, List<TbModuleModel> _Modules)
+        {
+            User = _User;
+            Modules = _Modules;
+        }
     }
 }

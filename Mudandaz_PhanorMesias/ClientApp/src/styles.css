@@ -14,3 +14,20 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  position: absolute;
+  background-color: #108dc7;
+  border: 1.5px solid transparent;
+  border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 45px;
+  color: white;
+  font-family: 'Merriweather', Georgia, serif;
+  ;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  display: block;
+}
