@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Mudandaz_PhanorMesias.Models;
 using Mudandaz_PhanorMesias.ViewModels;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -110,6 +112,52 @@ namespace Mudandaz_PhanorMesias.Controllers
             }
 
             return usersList;
+        }
+
+        [HttpPost("[action]")]
+        public TbUserModel saveUser(string tbUserModel)
+        {
+            TbUser user = JsonConvert.DeserializeObject<TbUser>(tbUserModel);
+            if (user != null)
+            {
+                if (user.UserId == 0)
+                {
+                    db.TbUsers.Add(user);
+                    db.SaveChanges();
+
+                    TnUserAuthorization autor = new TnUserAuthorization();
+                    autor.User = user.UserId;
+                    autor.Module = 2;
+                    db.TnUserAuthorizations.Add(autor);
+
+                    TnUserAuthorization autor1 = new TnUserAuthorization();
+                    autor1.User = user.UserId;
+                    autor1.Module = 3;
+                    db.TnUserAuthorizations.Add(autor1);
+
+                    db.SaveChanges();
+                }
+                else
+                {
+                    TbUser userEdit = db.TbUsers.Find(user.UserId);
+                    if (userEdit != null && userEdit.UserId > 0)
+                    {
+                        userEdit.Name = user.Name;
+                        userEdit.Login = user.Login;
+                        userEdit.Password = user.Password;
+
+                        db.Entry(userEdit).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                }
+            }
+            else
+            {
+                user = new TbUser();
+            }
+
+            TbUserModel usrModel = new TbUserModel(user);
+            return usrModel;
         }
     }
 }

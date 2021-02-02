@@ -1,17 +1,20 @@
 import { Injectable, Inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { Module, User, UserModules } from '../interfaces';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Module, User, UserModules, UserEdited } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AutenticacionService {
-  usr: Observable<User>;
   baseUrl: string;
-  autenticateServicePath: string = 'api/UserAuthentication/GetUser';
-  autorizateServicePath: string = 'api/UserAuthentication/GetModulesByUser';
-  modylesByUserServicePath: string = 'api/UserAuthentication/GetModulesByUsers';
+  servicePath: string = 'api/UserAuthentication/';
+
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    })
+  }
 
   constructor(private http: HttpClient, @Inject("BASE_URL") baseUrl: string) {
     this.baseUrl = baseUrl;
@@ -19,16 +22,21 @@ export class AutenticacionService {
 
   public autenticacion(login: string, psw: string): Observable<User> {
     
-    return this.http.get<User>(this.baseUrl + this.autenticateServicePath + '?login=' + login + '&psw=' + psw);
+    return this.http.get<User>(this.baseUrl + this.servicePath + 'GetUser?login=' + login + '&psw=' + psw);
   }
 
   public autorizacion(userId: string): Observable<Module[]> {
 
-    return this.http.get<Module[]>(this.baseUrl + this.autorizateServicePath + '?userId=' + userId );
+    return this.http.get<Module[]>(this.baseUrl + this.servicePath + 'GetModulesByUser?userId=' + userId );
   }
 
   public modulesByUser(userId: string): Observable<UserModules[]> {
 
-    return this.http.get<UserModules[]>(this.baseUrl + this.modylesByUserServicePath);
+    return this.http.get<UserModules[]>(this.baseUrl + this.servicePath + 'GetModulesByUsers');
+  }
+
+  public saveUser(userEdited: UserEdited): Observable<any> {
+
+    return this.http.post<any>(this.baseUrl + this.servicePath + 'saveUser?tbUserModel=' + JSON.stringify(userEdited), JSON.stringify(userEdited), this.httpOptions);
   }
 }

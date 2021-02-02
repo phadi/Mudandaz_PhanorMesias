@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Module, UserModules, User } from '../interfaces';
+import { Module, UserModules, User, UserEdited} from '../interfaces';
 import { AutenticacionService } from '../services/autenticacion.service';
 
 @Component({
@@ -18,6 +18,8 @@ export class AdminComponent {
   public login: string;
   public password: string;
   public userId: number;
+
+  public editNewUser: UserEdited;
 
   public esEditar: boolean = false;
 
@@ -50,8 +52,25 @@ export class AdminComponent {
   }
 
   public saveEditUser() {
-    this.esEditar = false;
+    
+    this.editNewUser = new UserEdited();
 
+    this.editNewUser.UserId = this.userId;
+    this.editNewUser.Name = this.name;
+    this.editNewUser.Login = this.login;
+    this.editNewUser.Password = this.password;
+
+    this.autenticacion.saveUser(this.editNewUser).subscribe(
+      data => {
+        let resp = data;
+        this.esEditar = false;
+        location.reload();
+      },
+      err => {
+        console.log(err);
+        alert(err);
+      }
+    );
   }
 
   public newUser() {

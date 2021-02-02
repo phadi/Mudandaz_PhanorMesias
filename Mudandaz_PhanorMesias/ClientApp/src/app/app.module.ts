@@ -12,7 +12,8 @@ import { IngresoComponent } from './ingreso/ingreso.component';
 import { MenuComponent } from './menu/menu.component';
 import { AdminComponent } from './admin/admin.component';
 import { MudanzaComponent } from './mudanza/mudanza.component';
-import { AutenticacionService } from './services/autenticacion.service'
+import { AutenticacionService } from './services/autenticacion.service';
+import { ViajesService } from './services/viajes.service'
 import { ListamenuComponent } from './listamenu/listamenu.component';
 
 @NgModule({
@@ -39,7 +40,7 @@ import { ListamenuComponent } from './listamenu/listamenu.component';
       { path: 'mudanza', component: MudanzaComponent },
     ])
   ],
-  providers: [AutenticacionService],
+  providers: [AutenticacionService, ViajesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

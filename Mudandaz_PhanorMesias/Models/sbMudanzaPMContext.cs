@@ -18,6 +18,7 @@ namespace Mudandaz_PhanorMesias.Models
         }
 
         public virtual DbSet<TbModule> TbModules { get; set; }
+        public virtual DbSet<TbTrazaEjecucion> TbTrazaEjecucions { get; set; }
         public virtual DbSet<TbUser> TbUsers { get; set; }
         public virtual DbSet<TnUserAuthorization> TnUserAuthorizations { get; set; }
 
@@ -60,6 +61,35 @@ namespace Mudandaz_PhanorMesias.Models
                     .HasMaxLength(500)
                     .IsUnicode(false)
                     .HasColumnName("url");
+            });
+
+            modelBuilder.Entity<TbTrazaEjecucion>(entity =>
+            {
+                entity.HasKey(e => e.TrazaEjecucionId);
+
+                entity.ToTable("tbTrazaEjecucion");
+
+                entity.Property(e => e.TrazaEjecucionId).HasColumnName("trazaEjecucionId");
+
+                entity.Property(e => e.Date)
+                    .HasColumnType("datetime")
+                    .HasColumnName("date");
+
+                entity.Property(e => e.EjecutorId)
+                    .HasMaxLength(50)
+                    .IsUnicode(false)
+                    .HasColumnName("ejecutorId");
+
+                entity.Property(e => e.Observations)
+                    .IsUnicode(false)
+                    .HasColumnName("observations");
+
+                entity.Property(e => e.UserId).HasColumnName("userId");
+
+                entity.HasOne(d => d.User)
+                    .WithMany(p => p.TbTrazaEjecucions)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_tbTrazaEjecucion_tbUser");
             });
 
             modelBuilder.Entity<TbUser>(entity =>
