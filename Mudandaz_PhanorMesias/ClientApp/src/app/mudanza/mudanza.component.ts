@@ -30,14 +30,14 @@ export class MudanzaComponent {
       this.autenticacion.autorizacion(this.logedUsr).subscribe(
         data => {
 
-          this.modules = data;
+          this.modules = data;          
         },
         err => {
           console.log(err);
           alert(err);
         }
       );
-
+     
       this.viajes.getTraceExecutions().subscribe(
         data => {
 
@@ -48,7 +48,6 @@ export class MudanzaComponent {
           alert(err);
         }
       );
-
     }
   }
 

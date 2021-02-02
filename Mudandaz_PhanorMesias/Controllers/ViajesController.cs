@@ -13,9 +13,7 @@ namespace Mudandaz_PhanorMesias.Controllers
     [Route("api/[controller]")]
     public class ViajesController : Controller
     {
-        private Models.sbMudanzaPMContext db;
-
-        public ViajesController() { }
+        private Models.sbMudanzaPMContext db;       
 
         public ViajesController(Models.sbMudanzaPMContext context)
         {
