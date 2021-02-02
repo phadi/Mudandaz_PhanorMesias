@@ -8,7 +8,7 @@ import { TrazaEjecucion, TrazaEjecucionModel } from '../interfaces';
 })
 export class ViajesService {
   baseUrl: string;
-  servicePath: string = 'api/Mudanza/';
+  servicePath: string = 'api/Viajes/';
 
   httpOptions = {
     headers: new HttpHeaders({

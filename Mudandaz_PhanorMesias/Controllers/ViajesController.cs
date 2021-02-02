@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Mudandaz_PhanorMesias.Models;
 using Mudandaz_PhanorMesias.ViewModels;
 using Newtonsoft.Json;
@@ -12,13 +11,13 @@ using System.Threading.Tasks;
 namespace Mudandaz_PhanorMesias.Controllers
 {
     [Route("api/[controller]")]
-    public class MudanzaController : Controller
+    public class ViajesController : Controller
     {
         private Models.sbMudanzaPMContext db;
 
-        public MudanzaController(){}
+        public ViajesController() { }
 
-        public MudanzaController(Models.sbMudanzaPMContext context)
+        public ViajesController(Models.sbMudanzaPMContext context)
         {
             db = context;
         }
@@ -68,6 +67,5 @@ namespace Mudandaz_PhanorMesias.Controllers
 
             return trazaEjecucionModel;
         }
-
     }
 }

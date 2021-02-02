@@ -22,7 +22,7 @@ namespace MudanzasTest.UnitTest
 
             var context2 = ConstruitContexto(dbName);
 
-            var controller = new MudanzaController(context2);
+            var controller = new ViajesController(context2);
             var resp = controller.GetTraceExecutions();
 
             Assert.AreEqual(1, resp.Count);
