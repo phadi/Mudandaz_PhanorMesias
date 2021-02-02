@@ -16,6 +16,8 @@ namespace Mudandaz_PhanorMesias.Controllers
     {
         private Models.sbMudanzaPMContext db;
 
+        public MudanzaController(){}
+
         public MudanzaController(Models.sbMudanzaPMContext context)
         {
             db = context;
