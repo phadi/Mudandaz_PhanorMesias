@@ -9,10 +9,16 @@ import { AutenticacionService } from '../services/autenticacion.service';
 
 export class ListamenuComponent {
   @Input() modules: Module[];
-  public logedUsr: string
+  public logedUsr: string;
+  public userName: string;
 
   constructor(private autenticacion: AutenticacionService) {
     this.logedUsr = localStorage.getItem('logedUser');
+    this.userName = localStorage.getItem('userName');
+    if (this.userName == null || this.userName == undefined || this.userName === "") { }
+    else {
+      this.userName = this.userName.toUpperCase();
+    }
   }
 
   public navigation(path) {

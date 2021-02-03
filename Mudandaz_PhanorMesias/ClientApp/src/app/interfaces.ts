@@ -19,6 +19,7 @@ export interface Module {
   description: string;
   url: string;
   image: string;
+  isSelected: boolean;
 }
 
 export interface UserModules {

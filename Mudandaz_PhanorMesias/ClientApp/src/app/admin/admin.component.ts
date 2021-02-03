@@ -10,6 +10,7 @@ import { AutenticacionService } from '../services/autenticacion.service';
 export class AdminComponent {
   public logedUsr: string
   public modules: Module[];
+  public moduleList: Module[];
   public userModules: UserModules[];
   public userModule: UserModules;
   public users: User[];
@@ -40,6 +41,16 @@ export class AdminComponent {
           alert(err);
         }
       );
+
+      this.autenticacion.getModules().subscribe(
+        data => {
+          this.moduleList = data;
+        },
+        err => {
+          console.log(err);
+          alert(err);
+        }
+      );
     }
   }
 
@@ -49,6 +60,18 @@ export class AdminComponent {
     this.login = userEdit.user.login;
     this.password = userEdit.user.password;
     this.userId = userEdit.user.userId;
+
+    this.moduleList.map(function (dato) {
+      for (let dato1 of userEdit.modules) {
+        if (dato1.moduleId == dato.moduleId) {
+          dato.isSelected = true;
+          break;
+        } else {
+          dato.isSelected = false;
+        }
+      }
+      return dato;
+    });    
   }
 
   public saveEditUser() {
@@ -60,7 +83,7 @@ export class AdminComponent {
     this.editNewUser.Login = this.login;
     this.editNewUser.Password = this.password;
 
-    this.autenticacion.saveUser(this.editNewUser).subscribe(
+    this.autenticacion.saveUser(this.editNewUser, this.moduleList).subscribe(
       data => {
         let resp = data;
         this.esEditar = false;
@@ -79,6 +102,11 @@ export class AdminComponent {
     this.login = '';
     this.password = '';
     this.userId = 0;
+
+    this.moduleList.map(function (dato) {
+      dato.isSelected = false
+      return dato;
+    });
   }
 
   public cancelar() {

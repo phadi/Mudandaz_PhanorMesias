@@ -58,6 +58,26 @@ namespace Mudandaz_PhanorMesias.Controllers
         }
 
         [HttpGet("[action]")]
+        public List<TbModuleModel> GetModules()
+        {
+            List<TbModule> moduleList = db.TbModules.ToList();
+
+            if (moduleList == null)
+            {
+                return new List<TbModuleModel>();
+            }
+
+            List<TbModuleModel> moduleListModel = new List<TbModuleModel>();
+            foreach (TbModule tbModule in moduleList)
+            {
+                TbModuleModel TbModuleModel = new TbModuleModel(tbModule);
+                moduleListModel.Add(TbModuleModel);
+            }
+
+            return moduleListModel;
+        }
+
+        [HttpGet("[action]")]
         public IEnumerable<TbModuleModel> GetModulesByUser(int? userId)
         {
             List<TbModuleModel> moduleList = (from u in db.TnUserAuthorizations
@@ -115,26 +135,14 @@ namespace Mudandaz_PhanorMesias.Controllers
         }
 
         [HttpPost("[action]")]
-        public TbUserModel saveUser(string tbUserModel)
+        public TbUserModel saveUser(string tbUserModel, string tbModuleModels)
         {
             TbUser user = JsonConvert.DeserializeObject<TbUser>(tbUserModel);
             if (user != null)
-            {
+            {                
                 if (user.UserId == 0)
                 {
                     db.TbUsers.Add(user);
-                    db.SaveChanges();
-
-                    TnUserAuthorization autor = new TnUserAuthorization();
-                    autor.User = user.UserId;
-                    autor.Module = 2;
-                    db.TnUserAuthorizations.Add(autor);
-
-                    TnUserAuthorization autor1 = new TnUserAuthorization();
-                    autor1.User = user.UserId;
-                    autor1.Module = 3;
-                    db.TnUserAuthorizations.Add(autor1);
-
                     db.SaveChanges();
                 }
                 else
@@ -147,9 +155,25 @@ namespace Mudandaz_PhanorMesias.Controllers
                         userEdit.Password = user.Password;
 
                         db.Entry(userEdit).State = EntityState.Modified;
-                        db.SaveChanges();
+
+                        List<TnUserAuthorization> tnUserAuthorizationLst = db.TnUserAuthorizations.Where(t => t.User == user.UserId).ToList();
+                        db.TnUserAuthorizations.RemoveRange(tnUserAuthorizationLst);
                     }
                 }
+
+                List<TbModuleModel> tbModuleList = JsonConvert.DeserializeObject<List<TbModuleModel>>(tbModuleModels);
+                foreach (TbModuleModel tbModu in tbModuleList)
+                {
+                    if (tbModu.IsSelected)
+                    {
+                        TnUserAuthorization autor = new TnUserAuthorization();
+                        autor.User = user.UserId;
+                        autor.Module = tbModu.ModuleId;
+                        db.TnUserAuthorizations.Add(autor);
+                    }
+                }
+
+                db.SaveChanges();
             }
             else
             {

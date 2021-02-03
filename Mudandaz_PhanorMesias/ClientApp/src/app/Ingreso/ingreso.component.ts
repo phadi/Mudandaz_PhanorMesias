@@ -11,7 +11,8 @@ export class IngresoComponent {
   public user;
   public password;
   public resp: User;
-  public logedUsr: string
+  public logedUsr: string;
+  public userName: string;
 
   constructor(private autenticacion: AutenticacionService) {
     this.logedUsr = localStorage.getItem('logedUser');
@@ -27,6 +28,7 @@ export class IngresoComponent {
           alert('usuario o contraseña invalido.');
         } else {
           localStorage.setItem('logedUser', this.resp.userId.toString());
+          localStorage.setItem('userName', this.resp.name);
           location.replace('/menu');
         }        
       },

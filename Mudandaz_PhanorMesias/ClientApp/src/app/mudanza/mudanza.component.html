@@ -5,52 +5,10 @@
   <meta charset="utf-8" />
   <title>GESTION DE MUDANZAS</title>
 
-  <script type="text/javascript">
-    alert('entra');
-    $(document).ready(function () {
-      alert('entra');
-      // Escuchamos el evento 'change' del input donde cargamos el archivo
-      $(document).on('change', 'input[type=file]', function (e) {
-        // Obtenemos la ruta temporal mediante el evento
-        var TmpPath = URL.createObjectURL(e.target.files[0]);
-        // Mostramos la ruta temporal
-        var file = document.getElementById("fileUpload");
-        var txt = document.getElementById("contenido");
-        txt.value = file.files[0].name;
-
-      });
-    });
-  </script>
-
-  <!--<script>
-    window.addEventListener('load', inicio, false);
-
-    function inicio() {
-      document.getElementById('archivo').addEventListener('change', cargar, false);
-    }
-
-    function cargar(ev) {
-      document.getElementById('datos').innerHTML = 'Nombre del archivo:' + ev.target.files[0].name + '<br>' +
-        'Tamaño del archivo:' + ev.target.files[0].size + '<br>' +
-        'Tipo MIME:' + ev.target.files[0].type;
-      var arch = new FileReader();
-      arch.addEventListener('load', leer, false);
-      arch.readAsText(ev.target.files[0]);
-    }
-
-    function leer(ev) {
-      document.getElementById('editor').value = ev.target.result;
-    }
-  </script>-->
 </head>
 
 <body>
-
-  <!--<input type="file" id="archivo"><br>
-  <textarea rows="10" cols="80" id="editor"></textarea>
-  <br>
-  <p id="datos"></p>-->
-
+  
   <div class="row">
     <div class="col-sm-3">
       <app-listamenu [modules]="modules"></app-listamenu>
@@ -62,7 +20,17 @@
         </div>
       </div>
       <hr />
-      <div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <button class="{{ claseProceso }}" style="width:100%" (click)="cambioEstilo(true)">Proceso de Mudanza</button>
+        </div>
+        <div class="col-sm-6">
+          <button class="{{ claseTraza }}" style="width:100%" (click)="cambioEstilo(false)">Traza de ejecuciones</button>
+        </div>
+      </div>
+      <br />
+      <div *ngIf="optionVariable; else elseBlock">
         <fieldset>
           <legend>Proceso de Mudanza</legend>
           <table>
@@ -76,13 +44,13 @@
             </thead>
             <tbody>
               <tr>
-                <td style="vertical-align:middle">
+                <td style="vertical-align:middle" class="text-center">
                   <input type="text" class="form-control" placeholder="Cédula" [(ngModel)]="cedula">
                 </td>
-                <td style="vertical-align:middle">
+                <td style="vertical-align:middle" class="text-center">
                   <input type="file" id="fileUpload" />
                 </td>
-                <td style="vertical-align:middle">
+                <td style="vertical-align:middle" class="text-center">
                   <textarea class="form-control" placeholder="Observaciones" [(ngModel)]="observaciones"></textarea>
                 </td>
                 <td style="vertical-align:middle" class="text-center">
@@ -93,20 +61,25 @@
               </tr>
             </tbody>
           </table>
-
         </fieldset>
-        <fieldset>
-          <legend>Archivo de Entrada</legend>
-          <textarea id="contenido" class="form-control" [(ngModel)]="contenido"></textarea>
-        </fieldset>
-
-        <fieldset>
-          <legend>Archivo de Salida</legend>
-          <textarea id="contenido" class="form-control" [(ngModel)]="contenido"></textarea>
-        </fieldset>
+        <br />
+        <div class="row">
+          <div class="col-sm-6">
+            <fieldset>
+              <legend>Archivo de Entrada</legend>
+              <textarea id="contenidoInput" class="form-control" rows="15"></textarea>
+            </fieldset>
+          </div>
+          <div class="col-sm-6">
+            <fieldset>
+              <legend>Archivo de Salida</legend>
+              <textarea id="contenidoOutput" class="form-control" [(ngModel)]="output" rows="15"></textarea>
+            </fieldset>
+          </div>
+        </div>
       </div>
       <hr />
-      <div>
+      <ng-template #elseBlock>
         <div class="media-body text-left">
           <fieldset>
             <legend>Traza de ejecuciones</legend>
@@ -133,48 +106,8 @@
             </table>
           </fieldset>
         </div>
-      </div>
+      </ng-template>
     </div>
   </div>
-
-  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script type="text/javascript">
-    $(document).ready(function () {
-      // Escuchamos el evento 'change' del input donde cargamos el archivo
-      $(document).on('change', 'input[type=file]', function (e) {
-        // Obtenemos la ruta temporal mediante el evento
-        var TmpPath = URL.createObjectURL(e.target.files[0]);
-        // Mostramos la ruta temporal
-        var file = document.getElementById("fileUpload");
-        var txt = document.getElementById("contenido");
-        txt.value = file.files[0].name;
-
-      });
-    });
-
-        //function abrirArchivo(evento) {
-        //  let archivo = evento.target.files[0];
-
-        //  if (archivo) {
-        //    let reader = new FileReader();
-
-        //    reader.onload = function (e) {
-        //      let contenido = e.target.result;
-
-        //      document.getElementById('contenido').innerText = contenido;
-        //    };
-
-        //    reader.readAsText(archivo);
-
-        //  } else {
-        //    document.getElementById('mensajes').innerText = 'No hay archivo seleccionado';
-        //  }
-        //}
-        //window.addEventListener('load', () => {
-        //  document.getElementById('fileUpload').addEventListener('change', abrirArchivo);
-        //});
-  </script>-->
-
-
 </body>
 </html>

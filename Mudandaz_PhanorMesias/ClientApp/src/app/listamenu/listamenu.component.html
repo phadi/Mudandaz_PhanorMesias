@@ -10,7 +10,7 @@
       <h5 class="mt-0">MODULOS</h5>
     </div>
   </div>
-  <hr />
+
   <div *ngIf="modules">
     <div *ngFor="let element of modules">
       <div class="media-body" (click)="navigation([element.url])">
@@ -29,6 +29,7 @@
       <a><span class="fas fa-sign-in-alt"></span> Log in</a>
     </div>
   </ng-template>
-
+  <hr />
+  <h6 class="text-center">{{ userName }}</h6>
 </body>
 </html>

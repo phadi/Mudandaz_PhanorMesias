@@ -51,6 +51,7 @@ namespace Mudandaz_PhanorMesias.Controllers
             {
                 TbUser usr = db.TbUsers.Find(trazaEjecucion.UserId);
                 login = usr.Login;
+
                 trazaEjecucion.Date = DateTime.Now;
                 db.TbTrazaEjecucions.Add(trazaEjecucion);
                 db.SaveChanges();

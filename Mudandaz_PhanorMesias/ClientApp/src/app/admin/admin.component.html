@@ -58,52 +58,63 @@
       </div>
 
       <ng-template #elseBlock>
-        <div>
-          <fieldset class="alert-success">
-            <legend>Datos de Usuario</legend>
-            <div class="row">
-              <div class="col-sm-4 text-right form-group">
-                <label class="ion-text-wrap" position="floating">
-                  <span class="fas fa-user-circle"></span> Nombre
-                </label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" placeholder="Nombre" [(ngModel)]="name">
-              </div>
+        <div class="row">
+          <div class="col-sm-8">
+            <fieldset class="alert-success" style="height:250px">
+              <legend>Datos de Usuario</legend>
+              <div class="row">
+                <div class="col-sm-4 text-right form-group">
+                  <label class="ion-text-wrap" position="floating">
+                    <span class="fas fa-user-circle"></span> Nombre
+                  </label>
+                </div>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" placeholder="Nombre" [(ngModel)]="name">
+                </div>
 
-              <div class="col-sm-4 text-right form-group">
-                <label class="ion-text-wrap" position="floating">
-                  <span class="fas fa-user-circle"></span> Login
-                </label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" placeholder="Login" [(ngModel)]="login">
-              </div>
+                <div class="col-sm-4 text-right form-group">
+                  <label class="ion-text-wrap" position="floating">
+                    <span class="fas fa-user-circle"></span> Login
+                  </label>
+                </div>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" placeholder="Login" [(ngModel)]="login">
+                </div>
 
-              <div class="col-sm-4 text-right form-group">
-                <label class="ion-text-wrap" position="floating">
-                  <span class="fas fa-user-circle"></span> Contraseña
-                </label>
-              </div>
-              <div class="col-sm-8">
-                <input type="text" class="form-control" placeholder="Contraseña" [(ngModel)]="password">
-              </div>
+                <div class="col-sm-4 text-right form-group">
+                  <label class="ion-text-wrap" position="floating">
+                    <span class="fas fa-user-circle"></span> Contraseña
+                  </label>
+                </div>
+                <div class="col-sm-8">
+                  <input type="text" class="form-control" placeholder="Contraseña" [(ngModel)]="password">
+                </div>
 
-              <div class="col-sm-4 text-right form-group"></div>
-              <div class="col-sm-8">
-                <button class="btn-primary" (click)="saveEditUser()">
-                  <span class="fas fa-save"></span>    Actualizar
-                </button>
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                <button class="btn-primary" (click)="cancelar()">
-                  <span class="fas fa-reply"></span>    Cancelar
-                </button>
+                <div class="col-sm-4 text-right form-group"></div>
+                <div class="col-sm-8">
+                  <button class="btn-primary" (click)="saveEditUser()">
+                    <span class="fas fa-save"></span>    Actualizar
+                  </button>
+                  &nbsp;&nbsp;&nbsp;&nbsp;
+                  <button class="btn-primary" (click)="cancelar()">
+                    <span class="fas fa-reply"></span>    Cancelar
+                  </button>
+                </div>
               </div>
-            </div>
-          </fieldset>
-          
+            </fieldset>
+          </div>
+          <div class="col-sm-4">
+            <fieldset class="alert-success" style="height:250px">
+              <legend>Permisos</legend>
+              <div *ngFor="let module of moduleList" style="margin-left:30px">
+                <p>
+                  <input type="checkbox" [(ngModel)]="module.isSelected" style="margin-right:10px"/>{{module.module}}
+                </p>
+              </div>
+            </fieldset>
+          </div>
         </div>
-      </ng-template>
+    </ng-template>
      
 
     </div>
