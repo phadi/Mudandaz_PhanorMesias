@@ -55,10 +55,6 @@ export class MudanzaComponent {
     }    
   }
 
-  public hola(){
-    alert('hola mundo');
-  }
-
   public cambioEstilo(cambio: boolean) {
     this.optionVariable = cambio;
     if (cambio) {
@@ -89,7 +85,6 @@ export class MudanzaComponent {
 
     if (this.cedula === "" || this.cedula === undefined || this.cedula === null) {
       messaje += 'El campo cedula no puede estar vacio \n';
-      //alert('El campo cedula no puede estar vacio');
     } 
 
     if (this.input === "" || this.input === undefined || this.input === null) {
@@ -106,7 +101,6 @@ export class MudanzaComponent {
   private leerArchivo() {
     try {      
       this.procesaInfo(this.input);
-      //this.guardarArchivo();
 
     } catch (error) {
       this.observaciones = error;
@@ -119,17 +113,43 @@ export class MudanzaComponent {
     this.arrayData = texto.split('\n');
 
     let textoSalida: string = '';
-    let i = 1;
+    let contadorArreglo: number = 1;
 
-    this.arrayData.forEach(function (data) {
+    let dias: number = +this.arrayData[0];
+
+    for (let j = 1; j <= dias; j++) {
+      let textoProc: string = 'Case #' + j + ': ';
+      let paquetes: number = +this.arrayData[contadorArreglo];
+      let finArreglo: number = contadorArreglo + paquetes;
+      contadorArreglo++;
+      let pesos: number[] = [];
+      let inicioArreglo: number = contadorArreglo;
+      
+      for (let k = inicioArreglo; k <= finArreglo; k++) {
+        //Calcular el mcm de los numero
+        var y: number = +this.arrayData[k];
+        pesos.push(y);
+        contadorArreglo++;
+      }
+      let suma: number = 0;
+      pesos.forEach(function (data) {
       //procesa la info
-      let textoProc: string = 'Case #' + i.toString();
-      textoSalida = textoSalida + textoProc + '\n';
-      i++;
+        suma = suma + data;
     });
 
-    this.output = 'Case #1: 2\nCase #2: 1\nCase #3: 2\nCase #4: 3\nCase #5: 8';
-    //this.output = textoSalida;
+      //contadorArreglo = contadorArreglo + paquetes;
+      textoSalida = textoSalida + textoProc + suma + '\n';
+    }
+
+    //this.arrayData.forEach(function (data) {
+    //  //procesa la info
+    //  let textoProc: string = 'Case #' + i.toString();
+    //  textoSalida = textoSalida + textoProc + '\n';
+    //  i++;
+    //});
+
+    //this.output = 'Case #1: 2\nCase #2: 1\nCase #3: 2\nCase #4: 3\nCase #5: 8';
+    this.output = textoSalida;
     this.observaciones = 'Procesado';    
   }
 
