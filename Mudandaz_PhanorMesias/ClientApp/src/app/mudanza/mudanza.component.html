@@ -73,7 +73,11 @@
           <div class="col-sm-6">
             <fieldset>
               <legend>Archivo de Salida</legend>
-              <textarea id="contenidoOutput" class="form-control" [(ngModel)]="output" rows="15"></textarea>
+
+              <textarea id="contenidoOutput" class="form-control" [(ngModel)]="output" rows="13"></textarea>
+              <button class="btn-primary" onclick="saveTextAsFile()">
+                <span class="fas fa-save"></span>    Guardar
+              </button>
             </fieldset>
           </div>
         </div>

@@ -106,26 +106,13 @@ export class MudanzaComponent {
   private leerArchivo() {
     try {      
       this.procesaInfo(this.input);
-      this.guardarArchivo();
+      //this.guardarArchivo();
 
     } catch (error) {
       this.observaciones = error;
     } finally {
       this.saveExecution();
     }
-  }
-
-  private guardarArchivo() {
-    try {
-     var archivoTxt = new XMLHttpRequest();
-      archivoTxt.open("GET", "../assets/lazy_loading_example_input.txt", false);
-      archivoTxt.send(null);
-
-      var txt = archivoTxt.responseText;
-    } catch (error) {
-      this.observaciones = error;
-      throw error;
-    } 
   }
  
   private procesaInfo(texto: string) {
