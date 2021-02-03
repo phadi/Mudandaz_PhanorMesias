@@ -117,11 +117,11 @@ export class MudanzaComponent {
 
   private guardarArchivo() {
     try {
-     //var archivoTxt = new XMLHttpRequest();
-      //archivoTxt.open("GET", "../assets/lazy_loading_example_input.txt", false);
-      //archivoTxt.send(null);
+     var archivoTxt = new XMLHttpRequest();
+      archivoTxt.open("GET", "../assets/lazy_loading_example_input.txt", false);
+      archivoTxt.send(null);
 
-      //var txt = archivoTxt.responseText;
+      var txt = archivoTxt.responseText;
     } catch (error) {
       this.observaciones = error;
       throw error;
