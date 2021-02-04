@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component  } from '@angular/core';
 import { Module, TrazaEjecucion, TrazaEjecucionModel } from '../interfaces';
 import { AutenticacionService } from '../services/autenticacion.service';
 import { ViajesService } from '../services/viajes.service';
@@ -33,9 +33,8 @@ export class MudanzaComponent {
 
   constructor(private autenticacion: AutenticacionService,
     private viajes: ViajesService)
-  {
-    
-    //console.log(jsfeat);
+  {    
+    this.observaciones = '';
     this.optionVariable = true;
     this.claseProceso = 'btn-primary';
     this.claseTraza = 'btn-default';
@@ -114,39 +113,64 @@ export class MudanzaComponent {
 
     let textoSalida: string = '';
     let contadorArreglo: number = 1;
-
     let dias: number = +this.arrayData[0];
 
-    for (let j = 1; j <= dias; j++) {
-      let textoProc: string = 'Case #' + j + ': ';
-      let paquetes: number = +this.arrayData[contadorArreglo];
-      let finArreglo: number = contadorArreglo + paquetes;
-      contadorArreglo++;
-      let pesos: number[] = [];
-      let inicioArreglo: number = contadorArreglo;
-      
-      for (let k = inicioArreglo; k <= finArreglo; k++) {
-        //arma arreglo por día
-        var y: number = +this.arrayData[k];
-        pesos.push(y);
-        contadorArreglo++;
+    if (dias >= 1 && dias <= 500) {
+      for (let j = 1; j <= dias; j++) {
+        let textoProc: string = 'Case #' + j + ': ';
+        let paquetes: number = +this.arrayData[contadorArreglo];
+        if (paquetes >= 1 && paquetes <= 100) {
+          let finArreglo: number = contadorArreglo + paquetes;
+          contadorArreglo++;
+          let pesos: number[] = [];
+          let inicioArreglo: number = contadorArreglo;
+
+          for (let k = inicioArreglo; k <= finArreglo; k++) {
+            //arma arreglo por día
+            var y: number = +this.arrayData[k];
+            pesos.push(y);
+            contadorArreglo++;
+          }
+
+          let suma: number = this.calculaMinimo(pesos);
+
+          textoSalida = textoSalida + textoProc + suma + '\n';
+        }else {
+          this.observaciones = this.observaciones + '\n El rando de paquees permitido permitido es (1 ≤ N ≤ 100)' ;          
+        }       
       }
 
-      let suma: number = this.calculaMinimo(pesos);
-
-      textoSalida = textoSalida + textoProc + suma + '\n';
+      this.output = textoSalida;
+      this.observaciones = 'Procesado' + '\n' + this.observaciones;
+    } else {
+      this.observaciones = 'El rando de días permitido es (1 ≤ T ≤ 500)';
     }
-
-    this.output = textoSalida;
-    this.observaciones = 'Procesado';    
+    
   }
 
   private calculaMinimo(pesos: number[]) {
       //procesa la info
-      let resultado: number = 0;
-      pesos.forEach(function (data) {
-        resultado = resultado + data;
-      });
+    
+    let resultado: number = 0;
+    let agrupa: number = 0;
+    let contador = 1;
+    pesos.forEach(function (data) {
+      if (contador == pesos.length) {
+        resultado++;
+      } else {
+        if (data >= 50) {
+          resultado++;
+        } else {
+          if (agrupa >= 50) {
+            resultado++;
+            agrupa = 0;
+          } else {
+            agrupa = agrupa + data;
+          }
+        }        
+      }
+      contador++;
+    });
 
     return resultado;
   }
@@ -179,5 +203,8 @@ export class MudanzaComponent {
 
     var elemento = document.getElementById('contenidoInput');
     elemento.innerHTML = '';
+    //location.reload();
+    //var input = document.getElementById('fileUpload');
+    //input.innerHTML = '';
   }
 }
