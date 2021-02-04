@@ -67,16 +67,21 @@
           <div class="col-sm-6">
             <fieldset>
               <legend>Archivo de Entrada</legend>
-              <textarea id="contenidoInput" class="form-control" rows="15"></textarea>
+              <textarea id="contenidoInput" class="form-control" rows="15" readonly></textarea>
             </fieldset>
           </div>
           <div class="col-sm-6">
             <fieldset>
               <legend>Archivo de Salida</legend>
-
-              <textarea id="contenidoOutput" class="form-control" [(ngModel)]="output" rows="13"></textarea>
+              <textarea id="contenidoOutput" class="form-control" [(ngModel)]="output" rows="13" readonly></textarea>
+              <br />
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <button class="btn-primary" onclick="saveTextAsFile()">
                 <span class="fas fa-save"></span>    Guardar
+              </button>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <button class="btn-primary" (click)="limpiaFormulario()">
+                <span class="fas fa-save"></span>    Limpia formulario
               </button>
             </fieldset>
           </div>

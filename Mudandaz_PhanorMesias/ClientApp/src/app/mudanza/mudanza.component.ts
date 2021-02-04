@@ -126,31 +126,29 @@ export class MudanzaComponent {
       let inicioArreglo: number = contadorArreglo;
       
       for (let k = inicioArreglo; k <= finArreglo; k++) {
-        //Calcular el mcm de los numero
+        //arma arreglo por día
         var y: number = +this.arrayData[k];
         pesos.push(y);
         contadorArreglo++;
       }
-      let suma: number = 0;
-      pesos.forEach(function (data) {
-      //procesa la info
-        suma = suma + data;
-    });
 
-      //contadorArreglo = contadorArreglo + paquetes;
+      let suma: number = this.calculaMinimo(pesos);
+
       textoSalida = textoSalida + textoProc + suma + '\n';
     }
 
-    //this.arrayData.forEach(function (data) {
-    //  //procesa la info
-    //  let textoProc: string = 'Case #' + i.toString();
-    //  textoSalida = textoSalida + textoProc + '\n';
-    //  i++;
-    //});
-
-    //this.output = 'Case #1: 2\nCase #2: 1\nCase #3: 2\nCase #4: 3\nCase #5: 8';
     this.output = textoSalida;
     this.observaciones = 'Procesado';    
+  }
+
+  private calculaMinimo(pesos: number[]) {
+      //procesa la info
+      let resultado: number = 0;
+      pesos.forEach(function (data) {
+        resultado = resultado + data;
+      });
+
+    return resultado;
   }
 
   private saveExecution() {
@@ -172,5 +170,14 @@ export class MudanzaComponent {
         alert(err);
       }
     );
+  }
+
+  public limpiaFormulario() {
+    this.output = '';
+    this.observaciones = '';
+    this.cedula = '';
+
+    var elemento = document.getElementById('contenidoInput');
+    elemento.innerHTML = '';
   }
 }
