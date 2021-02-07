@@ -86,8 +86,13 @@ export class AdminComponent {
     this.autenticacion.saveUser(this.editNewUser, this.moduleList).subscribe(
       data => {
         let resp = data;
-        this.esEditar = false;
-        location.reload();
+        if (resp.userId == -1) {
+          alert(resp.name);
+        } else {
+          this.esEditar = false;
+          location.reload();
+        }
+        
       },
       err => {
         console.log(err);

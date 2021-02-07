@@ -45,26 +45,37 @@ namespace Mudandaz_PhanorMesias.Controllers
         [HttpPost("[action]")]
         public TbTrazaEjecucionModel saveTrace(string tbTrazaEjecucionModel)
         {
-            string login = string.Empty;
-            TbTrazaEjecucion trazaEjecucion = JsonConvert.DeserializeObject<TbTrazaEjecucion>(tbTrazaEjecucionModel);
-            if (trazaEjecucion != null)
+            try
             {
-                TbUser usr = db.TbUsers.Find(trazaEjecucion.UserId);
-                login = usr.Login;
+                string login = string.Empty;
+                TbTrazaEjecucion trazaEjecucion = JsonConvert.DeserializeObject<TbTrazaEjecucion>(tbTrazaEjecucionModel);
+                if (trazaEjecucion != null)
+                {
+                    TbUser usr = db.TbUsers.Find(trazaEjecucion.UserId);
+                    login = usr.Login;
 
-                trazaEjecucion.Date = DateTime.Now;
-                db.TbTrazaEjecucions.Add(trazaEjecucion);
-                db.SaveChanges();
+                    trazaEjecucion.Date = DateTime.Now;
+                    db.TbTrazaEjecucions.Add(trazaEjecucion);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    trazaEjecucion = new TbTrazaEjecucion();
+                }
+
+                TbTrazaEjecucionModel trazaEjecucionModel = new TbTrazaEjecucionModel(trazaEjecucion);
+                trazaEjecucionModel.Login = login;
+
+                return trazaEjecucionModel;
             }
-            else
+            catch(Exception ex)
             {
-                trazaEjecucion = new TbTrazaEjecucion();
+                TbTrazaEjecucionModel trazaEjecucionModel = new TbTrazaEjecucionModel();
+                trazaEjecucionModel.TrazaEjecucionId = -1;
+                trazaEjecucionModel.Observations = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                return trazaEjecucionModel;
             }
-
-            TbTrazaEjecucionModel trazaEjecucionModel = new TbTrazaEjecucionModel(trazaEjecucion);
-            trazaEjecucionModel.Login = login;
-
-            return trazaEjecucionModel;
+            
         }
     }
 }

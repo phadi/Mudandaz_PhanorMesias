@@ -187,6 +187,9 @@ export class MudanzaComponent {
       data => {
 
         this.excutionModel = data;
+        if (this.excutionModel.TrazaEjecucionId == -1) {
+          alert(this.excutionModel.Observations);
+        }
         
       },
       err => {

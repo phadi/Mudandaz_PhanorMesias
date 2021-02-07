@@ -137,51 +137,62 @@ namespace Mudandaz_PhanorMesias.Controllers
         [HttpPost("[action]")]
         public TbUserModel saveUser(string tbUserModel, string tbModuleModels)
         {
-            TbUser user = JsonConvert.DeserializeObject<TbUser>(tbUserModel);
-            if (user != null)
-            {                
-                if (user.UserId == 0)
+            try{
+                TbUser user = JsonConvert.DeserializeObject<TbUser>(tbUserModel);
+                if (user != null)
                 {
-                    db.TbUsers.Add(user);
+                    if (user.UserId == 0)
+                    {
+                        db.TbUsers.Add(user);
+                        db.SaveChanges();
+                    }
+                    else
+                    {
+                        TbUser userEdit = db.TbUsers.Find(user.UserId);
+                        if (userEdit != null && userEdit.UserId > 0)
+                        {
+                            userEdit.Name = user.Name;
+                            userEdit.Login = user.Login;
+                            userEdit.Password = user.Password;
+
+                            db.Entry(userEdit).State = EntityState.Modified;
+
+                            List<TnUserAuthorization> tnUserAuthorizationLst = db.TnUserAuthorizations.Where(t => t.User == user.UserId).ToList();
+                            db.TnUserAuthorizations.RemoveRange(tnUserAuthorizationLst);
+                        }
+                    }
+
+                    List<TbModuleModel> tbModuleList = JsonConvert.DeserializeObject<List<TbModuleModel>>(tbModuleModels);
+                    foreach (TbModuleModel tbModu in tbModuleList)
+                    {
+                        if (tbModu.IsSelected)
+                        {
+                            TnUserAuthorization autor = new TnUserAuthorization();
+                            autor.User = user.UserId;
+                            autor.Module = tbModu.ModuleId;
+                            db.TnUserAuthorizations.Add(autor);
+                        }
+                    }
+
                     db.SaveChanges();
                 }
                 else
                 {
-                    TbUser userEdit = db.TbUsers.Find(user.UserId);
-                    if (userEdit != null && userEdit.UserId > 0)
-                    {
-                        userEdit.Name = user.Name;
-                        userEdit.Login = user.Login;
-                        userEdit.Password = user.Password;
-
-                        db.Entry(userEdit).State = EntityState.Modified;
-
-                        List<TnUserAuthorization> tnUserAuthorizationLst = db.TnUserAuthorizations.Where(t => t.User == user.UserId).ToList();
-                        db.TnUserAuthorizations.RemoveRange(tnUserAuthorizationLst);
-                    }
+                    user = new TbUser();
                 }
 
-                List<TbModuleModel> tbModuleList = JsonConvert.DeserializeObject<List<TbModuleModel>>(tbModuleModels);
-                foreach (TbModuleModel tbModu in tbModuleList)
-                {
-                    if (tbModu.IsSelected)
-                    {
-                        TnUserAuthorization autor = new TnUserAuthorization();
-                        autor.User = user.UserId;
-                        autor.Module = tbModu.ModuleId;
-                        db.TnUserAuthorizations.Add(autor);
-                    }
-                }
-
-                db.SaveChanges();
+                TbUserModel usrModel = new TbUserModel(user);
+                return usrModel;
             }
-            else
+            catch(Exception ex)
             {
-                user = new TbUser();
-            }
+                TbUserModel usrModel = new TbUserModel();
+                usrModel.UserId = -1;
+                usrModel.Name = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                return usrModel;
 
-            TbUserModel usrModel = new TbUserModel(user);
-            return usrModel;
+            }
+            
         }
     }
 }

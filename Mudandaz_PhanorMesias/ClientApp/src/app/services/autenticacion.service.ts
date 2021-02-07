@@ -35,9 +35,9 @@ export class AutenticacionService {
     return this.http.get<UserModules[]>(this.baseUrl + this.servicePath + 'GetModulesByUsers');
   }
 
-  public saveUser(userEdited: UserEdited, moduleList: Module[]): Observable<any> {
+  public saveUser(userEdited: UserEdited, moduleList: Module[]): Observable<User> {
 
-    return this.http.post<any>(this.baseUrl + this.servicePath + 'saveUser?tbUserModel=' + JSON.stringify(userEdited) + '&tbModuleModels=' + JSON.stringify(moduleList), JSON.stringify(userEdited), this.httpOptions);
+    return this.http.post<User>(this.baseUrl + this.servicePath + 'saveUser?tbUserModel=' + JSON.stringify(userEdited) + '&tbModuleModels=' + JSON.stringify(moduleList), JSON.stringify(userEdited), this.httpOptions);
   }
 
   public getModules(): Observable<Module[]> {
